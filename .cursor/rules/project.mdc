@@ -1,0 +1,114 @@
+---
+description: Core architecture and engineering rules for the algorithmic trading system
+alwaysApply: true
+---
+
+# Algo Trading Bot Rules
+
+## Project Goal
+
+Build a modular Python algorithmic trading system capable of:
+
+- market data ingestion
+- feature engineering
+- market regime detection
+- strategy research
+- backtesting
+- risk management
+- portfolio construction
+- execution
+- performance evaluation
+- strategy optimization
+- periodic model/strategy review
+
+The system must separate research, backtesting, paper trading, and live trading.
+
+## Architecture
+
+Keep these components independent:
+
+- data
+- features
+- regime detection
+- strategies
+- portfolio
+- risk
+- execution
+- backtest
+- optimization
+- evaluation
+
+Do not put trading logic directly inside execution code.
+
+## Safety
+
+Never enable live trading by default.
+
+Live execution must require explicit configuration.
+
+Never hardcode API keys, secrets, account IDs, or credentials.
+
+## Reproducibility
+
+Research experiments must record:
+
+- dataset/version
+- time range
+- feature configuration
+- strategy parameters
+- regime configuration
+- transaction cost assumptions
+- slippage assumptions
+- random seed when applicable
+- performance metrics
+
+## Backtesting
+
+Avoid look-ahead bias.
+
+Avoid data leakage.
+
+All features must only use information available at the decision timestamp.
+
+Transaction costs and slippage must be configurable.
+
+## Adaptive System
+
+The adaptive architecture should distinguish:
+
+1. market observation
+2. regime detection
+3. strategy selection
+4. parameter adaptation
+5. risk adjustment
+6. evaluation
+7. periodic review
+
+Do not allow unrestricted self-modification of production code.
+
+Adaptive behavior should modify validated parameters/models/configurations,
+not arbitrary source code.
+
+## Testing
+
+Every core component should have unit tests.
+
+Critical trading calculations require deterministic tests.
+
+Before changing architecture, preserve existing tests.
+
+## Code Quality
+
+Use Python 3.12.
+
+Use type hints.
+
+Prefer small, composable modules.
+
+Avoid global mutable state.
+
+Use Ruff for formatting and linting.
+
+Use pytest for tests.
+
+Prefer configuration over hardcoded constants.
